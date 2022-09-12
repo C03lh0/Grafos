@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Scanner;
 
 public class Graphs {
@@ -6,9 +7,9 @@ public class Graphs {
     private int graphsLength;
     private int [] [] adjacencyMatrix;
     private Scanner fileGraphsElement;
+    private List<Vertices> verticesList;
 
-    public Graphs (Scanner fileGraphsElement){
-        this.fileGraphsElement = fileGraphsElement;
+    public Graphs (int graphsOrder, int graphsLength, int [] [] adjacencyMatrix){
         this.InitializeGraph();
     }
 
@@ -34,10 +35,9 @@ public class Graphs {
             int inputVertex = Integer.parseInt(vetor[1]);
             adjacencyMatrix[outputVertex][inputVertex] = 1;
         }
-        this.ShowMatrix();
     }
 
-    private void ShowMatrix(){
+    public void ShowMatrix(){
         for(int i = 0; i < adjacencyMatrix.length; i++){
             System.out.print("(" + i + ")" + " ");
 
