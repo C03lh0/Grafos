@@ -1,5 +1,6 @@
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -15,8 +16,10 @@ public class GraphsFactory {
         try{
             this.readFile = new Scanner(new FileReader(filePath)).useDelimiter("\\n");
         }catch (FileNotFoundException e){
-            System.out.println("Status: " + e.getMessage());
+            System.out.println("Status: File not found -> " + e.getMessage());
         }
+
+        this.verticesList = new ArrayList<Vertices>();
         this.StartGraphMatrix();
     }
 
@@ -53,29 +56,27 @@ public class GraphsFactory {
     }
 
     private void FillNeighboringVertices() {
-        for (Vertices vertex : this.verticesList) {
+        for(int i = 0; i < this.adjacencyMatrix.length; i++){
+            Vertices vertex = this.verticesList.get(i);
             
-            for(int i = 0; i < this.adjacencyMatrix.length; i++){
-                
-                for(int j = 0; j < this.adjacencyMatrix[0].length; j++){
+            for(int j = 0; j < this.adjacencyMatrix[0].length; j++){
 
-                    String verticeName = Integer.toString(j);
-                    int neighboringVertexValue = this.adjacencyMatrix[i][j];
+                String verticeName = Integer.toString(j);
+                int neighboringVertexValue = this.adjacencyMatrix[i][j];
 
-                    if(neighboringVertexValue == 1){
-                        Vertices matrixVertex = new Vertices(verticeName, neighboringVertexValue);
-                        matrixVertex.setOutputVertex(false);
-                        vertex.getNeighboringVertices().add(matrixVertex);
-                    }
+                if(neighboringVertexValue == 1){
+                    Vertices matrixVertex = new Vertices(verticeName, neighboringVertexValue);
+                    matrixVertex.setOutputVertex(false);
+                    vertex.getNeighboringVertices().add(this.verticesList.get(j));
+                }
 
-                    verticeName = Integer.toString(i);
-                    neighboringVertexValue = this.adjacencyMatrix[j][i];
+                verticeName = Integer.toString(j);
+                neighboringVertexValue = this.adjacencyMatrix[j][i];
 
-                    if(neighboringVertexValue == 1){
-                        Vertices matrixVertex = new Vertices(verticeName, neighboringVertexValue);
-                        matrixVertex.setOutputVertex(true);
-                        vertex.getNeighboringVertices().add(matrixVertex);
-                    }
+                if(neighboringVertexValue == 1){
+                    Vertices matrixVertex = new Vertices(verticeName, neighboringVertexValue);
+                    matrixVertex.setOutputVertex(true);
+                    vertex.getNeighboringVertices().add(this.verticesList.get(j));
                 }
             }
         }

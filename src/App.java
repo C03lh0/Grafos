@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class App {
     public static void main(String[] args) throws Exception {
 
-        //Graphs myGraph1 = new Graphs();
+        GraphsFactory graphsFactory = new GraphsFactory("pequenoG.txt");
+        Graphs myGraphs = graphsFactory.getGraphs();
     }
 }
