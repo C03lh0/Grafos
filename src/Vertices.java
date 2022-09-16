@@ -5,19 +5,31 @@ public class Vertices {
     private String name;
     private Integer value;
     private EnumColors color;
-    private boolean outputVertex;
-    private List<Vertices> neighboringVertices;
+    private List<Vertices> pointsToVertices;
+    private List<Vertices> pointedByVertices;
 
     public Vertices(String name, int value){
         this.name = name;
         this.value = value;
-        this.outputVertex = true;
         this.color = EnumColors.White;
-        this.neighboringVertices = new ArrayList<Vertices>();
+        this.pointsToVertices = new ArrayList<Vertices>();
+        this.pointedByVertices = new ArrayList<Vertices>();
     }
 
-    public boolean addNewNeighboring(Vertices vertex){
-        return this.neighboringVertices.add(vertex);
+    public boolean addInputVertice(Vertices inputVertex){
+        return this.pointsToVertices.add(inputVertex);
+    }
+
+    public List<Vertices> getInputVertice() {
+        return pointsToVertices;
+    }
+
+    public boolean addOutputVertice(Vertices outputVerticex) {
+        return this.pointedByVertices.add(outputVerticex);
+    }
+
+    public List<Vertices> getOutputVertices() {
+        return pointedByVertices;
     }
 
     public String getName() {
@@ -30,18 +42,6 @@ public class Vertices {
 
     public Integer getValue() {
         return value;
-    }
-
-    public List<Vertices> getNeighboringVertices() {
-        return neighboringVertices;
-    }
-
-    public boolean isOutputVertex() {
-        return outputVertex;
-    }
-
-    public void setOutputVertex(boolean outputVertex) {
-        this.outputVertex = outputVertex;
     }
 
     public EnumColors getColor() {

@@ -61,22 +61,16 @@ public class GraphsFactory {
             
             for(int j = 0; j < this.adjacencyMatrix[0].length; j++){
 
-                String verticeName = Integer.toString(j);
                 int neighboringVertexValue = this.adjacencyMatrix[i][j];
 
                 if(neighboringVertexValue == 1){
-                    Vertices matrixVertex = new Vertices(verticeName, neighboringVertexValue);
-                    matrixVertex.setOutputVertex(false);
-                    vertex.getNeighboringVertices().add(this.verticesList.get(j));
+                    vertex.addInputVertice(this.verticesList.get(j));
                 }
-
-                verticeName = Integer.toString(j);
+                
                 neighboringVertexValue = this.adjacencyMatrix[j][i];
 
                 if(neighboringVertexValue == 1){
-                    Vertices matrixVertex = new Vertices(verticeName, neighboringVertexValue);
-                    matrixVertex.setOutputVertex(true);
-                    vertex.getNeighboringVertices().add(this.verticesList.get(j));
+                    vertex.addOutputVertice(this.verticesList.get(j));
                 }
             }
         }
