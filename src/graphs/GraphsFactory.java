@@ -1,8 +1,11 @@
+package graphs;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import searchGraph.GraphBreadthSearch;
 
 public class GraphsFactory {
 
@@ -64,19 +67,23 @@ public class GraphsFactory {
                 int neighboringVertexValue = this.adjacencyMatrix[i][j];
 
                 if(neighboringVertexValue == 1){
-                    vertex.addInputVertice(this.verticesList.get(j));
+                    vertex.addSuccessorVertex(this.verticesList.get(j));
                 }
                 
                 neighboringVertexValue = this.adjacencyMatrix[j][i];
 
                 if(neighboringVertexValue == 1){
-                    vertex.addOutputVertice(this.verticesList.get(j));
+                    vertex.addPredecessorVertex(this.verticesList.get(j));
                 }
             }
         }
     }
 
-    public Graphs getGraphs(){
-        return new Graphs(this.graphsOrder, this.graphsLength, this.verticesList);
+    public Graph getGraphs(){
+        return new Graph(this.graphsOrder, this.graphsLength, this.verticesList);
+    }
+
+    public GraphBreadthSearch getGraphBreadthSearch(Integer index){
+        return new GraphBreadthSearch(this.graphsOrder, this.graphsLength, this.verticesList, index);
     }
 }
