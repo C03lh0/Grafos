@@ -19,11 +19,11 @@ public class App {
         //Atividade 2
         System.out.println();
         System.out.println("Busca em Extenção");
-        Integer verticeSourceIndex = 3;
-        Integer verticeTargetIndex = 0;
+        Integer verticeSourceIndex = 6;
+        Integer verticeTargetIndex = 9;
         ISearch myBFS = graphsFactory.getGraphBreadthSearch(verticeSourceIndex);
 
         System.out.println("O menor caminho entre o vértice " + verticeSourceIndex + " e o vértice " + verticeTargetIndex + " é: ");
-        myBFS.printPath(verticeTargetIndex);
+        myBFS.checkAndPrintPath(verticeTargetIndex);
     }
 }

@@ -5,8 +5,10 @@ import java.util.List;
 public class Vertices {
     private String name;
     private Integer value;
-    private Integer distance;
     private EnumColors color;
+    private Integer distance;
+    private Integer inicialTimer;
+    private Integer finalTimer;
     private List<Vertices> successorVertex;
     private List<Vertices> predecessorVertex;
 
@@ -63,19 +65,35 @@ public class Vertices {
         this.distance = distance;
     }
 
-    public List<Vertices> getAllNeighbors(){
-        List<Vertices> allNeighbors = new ArrayList<Vertices>();
+    public Integer getInicialTimer() {
+        return inicialTimer;
+    }
 
-        for (Vertices vertice : successorVertex) {
-            if(!allNeighbors.contains(vertice)){}
-                allNeighbors.add(vertice);
-        }
+    public void setInicialTimer(Integer inicialTimer) {
+        this.inicialTimer = inicialTimer;
+    }
 
-        for (Vertices vertice : predecessorVertex) {
-            if(!allNeighbors.contains(vertice)){}
-                allNeighbors.add(vertice);
+    public Integer getFinalTimer() {
+        return finalTimer;
+    }
+
+    public void setFinalTimer(Integer finalTimer) {
+        this.finalTimer = finalTimer;
+    }
+
+    public Vertices getVertexWithShortestDistance(){
+
+        if(!this.predecessorVertex.isEmpty()){
+            Vertices vertexWithShortestDistance = this.predecessorVertex.get(0);
+            for (Vertices vertice : this.predecessorVertex) {
+                    
+                if(vertice.getDistance() < vertexWithShortestDistance.getDistance()){
+                    vertexWithShortestDistance = vertice;
+                }
+            }   
+            return vertexWithShortestDistance;
         }
-        return allNeighbors;
+        return null;
     }
 
     @Override

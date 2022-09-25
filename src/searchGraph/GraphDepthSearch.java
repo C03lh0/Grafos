@@ -7,43 +7,50 @@ import graphs.Vertices;
 import graphs.Graph;
 import graphs.EnumColors;
 
-public class GraphBreadthSearch extends Graph implements ISearch {
+public class GraphDepthSearch extends Graph implements ISearch  {
 
     private Vertices sourceVertex;
+    private Integer timer;
 
-    public GraphBreadthSearch(int graphsOrder, int graphsLength, List<Vertices> verticesList, Integer sourceVertexIndex) {
+    public GraphDepthSearch(int graphsOrder, int graphsLength, List<Vertices> verticesList, Integer sourceVertexIndex) {
         super(graphsOrder, graphsLength, verticesList);
         this.sourceVertex = this.verticesList.get(sourceVertexIndex);
+        this.timer = -1;
         this.start();
     }
 
     @Override
     public void start() {
-        Vertices currentVertex;
-        List<Vertices> neighboringVerticeSource ;
-        LinkedList<Vertices> queueVertices = new LinkedList<Vertices>();
+        Vertices currentVertex = this.sourceVertex;
+        List<Vertices> neighboringVerticeSource = currentVertex.getSuccessorVertex();
 
-        currentVertex = this.sourceVertex;
-        currentVertex.setColor(EnumColors.Gray);
-        queueVertices.add(currentVertex);
-
-        while (!queueVertices.isEmpty()) {
-            currentVertex = queueVertices.pop();
-            neighboringVerticeSource = currentVertex.getSuccessorVertex();
-
-            for (Vertices vertice : neighboringVerticeSource) {
-                if(vertice.getColor() == EnumColors.White){
-                    vertice.setColor(EnumColors.Gray);
-                    vertice.setDistance(currentVertex.getDistance() + 1);
-
-                    if(!vertice.getPredecessorVertex().contains(currentVertex)){
-                        vertice.getPredecessorVertex().add(currentVertex);
-                    }
-                    queueVertices.add(vertice);
-                }
-            }
-            currentVertex.setColor(EnumColors.Black);
+        for (Vertices vertex : neighboringVerticeSource) {
+            vertex.setInicialTimer(this.timer);
+            vertex.setFinalTimer(this.timer);
         }
+        this.timer = 1;
+        dfsVisit(currentVertex);
+    }
+
+    private void dfsVisit(Vertices currentVertex) {
+        List<Vertices> listSuccessorsCurrentVertex = currentVertex.getSuccessorVertex();
+
+        this.timer++;
+        currentVertex.setColor(EnumColors.Gray);
+        currentVertex.setInicialTimer(this.timer);
+
+        for (Vertices vertex : listSuccessorsCurrentVertex) {
+            if(vertex.getColor() == EnumColors.White){
+                if(!vertex.getPredecessorVertex().contains(currentVertex)){
+                    vertex.getPredecessorVertex().add(currentVertex);
+                }
+                dfsVisit(vertex);
+            }
+        }
+
+        this.timer++;
+        currentVertex.setColor(EnumColors.Black);
+        currentVertex.setFinalTimer(this.timer);
     }
 
     public void checkAndPrintPath(Integer target){
