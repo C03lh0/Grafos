@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import searchGraph.GraphBreadthSearch;
+import searchGraph.GraphDepthSearch;
 
 public class GraphsFactory {
 
@@ -85,5 +86,9 @@ public class GraphsFactory {
 
     public GraphBreadthSearch getGraphBreadthSearch(Integer index){
         return new GraphBreadthSearch(this.graphsOrder, this.graphsLength, this.verticesList, index);
+    }
+
+    public GraphDepthSearch getGraphDepthSearch(Integer index){
+        return new GraphDepthSearch(this.graphsOrder, this.graphsLength, this.verticesList, index);
     }
 }

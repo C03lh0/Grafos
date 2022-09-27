@@ -81,6 +81,21 @@ public class Vertices {
         this.finalTimer = finalTimer;
     }
 
+    public List<Vertices> getAllAdjacents(){
+        List<Vertices> allAdjacents = new ArrayList<Vertices>();
+
+        for (Vertices vertex : this.predecessorVertex) {
+            allAdjacents.add(vertex);
+        }
+
+        for (Vertices vertex : this.successorVertex) {
+            if(!allAdjacents.contains(vertex)){
+                allAdjacents.add(vertex);
+            }
+        }
+        return allAdjacents;
+    }
+
     public Vertices getVertexWithShortestDistance(){
 
         if(!this.predecessorVertex.isEmpty()){
